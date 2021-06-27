@@ -32,7 +32,7 @@ SECRET_KEY = os.environ["SECRET_KEY"]
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True if os.environ["DEBUG"] == "True" else False
 
-ALLOWED_HOSTS = [] if DEBUG else ["realcoder.org"]
+ALLOWED_HOSTS = [] if DEBUG else ["www.realcoder.org"]
 
 
 # Application definition
