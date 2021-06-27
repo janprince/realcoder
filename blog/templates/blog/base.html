@@ -4,9 +4,11 @@
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>Katen - Minimal Blog & Magazine HTML Theme</title>
-	<meta name="description" content="Katen - Minimal Blog & Magazine HTML Theme">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    {% block metas %}
+
+    {% endblock metas %}
 
 	<link rel="shortcut icon" type="image/x-icon" href="{% static 'blog/images/favicon.png' %}">
 
@@ -150,6 +152,16 @@
     <script src="{% static 'blog/js/jquery.sticky-sidebar.min.js' %}"></script>
     <script src="{% static 'blog/js/custom.js' %}"></script>
 
+    <!-- Alerts/Messages-->
+    {% if messages %}	<!-- referring to django messages-->
+        {% for message in messages %}
+            <script>
+              document.addEventListener("DOMContentLoaded", function(){
+                alert(" {{ message }}");
+              });
+            </script>
+        {% endfor %}
+    {% endif %}
 </body>
 
 </html>

@@ -1,3 +1,4 @@
+{% load static %}
 <header class="header-personal">
         <div class="container-xl header-top">
             <div class="row align-items-center">
@@ -16,8 +17,8 @@
 
                 <div class="col-md-4 col-sm-12 col-xs-12 text-center">
                 <!-- site logo -->
-                    <a class="navbar-brand" href="personal.html"><img src="images/other/avatar-lg.png" alt="logo" /></a>
-                    <a href="personal.html" class="d-block text-logo">Katen<span class="dot">.</span></a>
+                    <a class="navbar-brand" href="personal.html"><img src="{% static 'blog/images/rc_logo.png' %}" width="150" alt="logo" /></a>
+                    <a href="personal.html" class="d-block text-logo">RealCoder<span class="dot">.</span></a>
                     <span class="slogan d-block">Professional Writer & Personal Blogger</span>
                 </div>
 

@@ -9,14 +9,14 @@ class Author(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"{self.user.get_full_name()}"
+        return f"{self.user.username}"
 
 
 # Category model
 class Category(models.Model):
     tag = models.CharField(max_length=50, unique=True)
-    slug = models.SlugField(blank=True)
-    meta_description = models.TextField(max_length=170, blank=False)
+    slug = models.SlugField()
+    meta_description = models.TextField(max_length=170, blank=True)
 
     def __str__(self):
         return f'{self.tag}'
@@ -37,6 +37,8 @@ class Post(models.Model):
     pub_date = models.DateTimeField(default=timezone.now)      # default=timezone.now - from django.utils import tim...
     categories = models.ManyToManyField(Category, blank=False, related_name='posts')
     featured = models.BooleanField(default=False)
+    popular = models.BooleanField(default=False)
+
 
     class Meta:
         ordering = ['-pub_date']
