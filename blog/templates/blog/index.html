@@ -50,7 +50,7 @@
                                 <!-- post -->
                                 <div class="post post-grid rounded bordered">
                                     <div class="thumb top-rounded">
-                                        <a href="{% url 'blog:category' post.category %}" class="category-badge position-absolute">{{ post.category }}</a>
+                                        <a href="{% url 'blog:category' post.category.slug %}" class="category-badge position-absolute">{{ post.category }}</a>
                                         <span class="post-format">
                                             <i class="icon-picture"></i>
                                         </span>
