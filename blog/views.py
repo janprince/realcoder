@@ -92,7 +92,7 @@ def category(request, cat_slug):
 
 def tag(request, tag_slug):
     tag_ = Tag.objects.get(slug=tag_slug)
-    posts = tag.posts.all()
+    posts = tag_.posts.all()
 
     context = {
         "posts": posts,

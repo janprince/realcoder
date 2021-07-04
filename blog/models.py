@@ -48,7 +48,7 @@ class Post(models.Model):
     meta_description = models.TextField(max_length=170, blank=True)
     content = RichTextUploadingField()
     pub_date = models.DateTimeField(default=timezone.now)      # default=timezone.now - from django.utils import tim...
-    categories = models.ForeignKey(Category, related_name='posts', on_delete=models.CASCADE, blank=True, null=True)
+    category = models.ForeignKey(Category, related_name='posts', on_delete=models.CASCADE, blank=True, null=True)
     tags = models.ManyToManyField(Tag, blank=True, related_name="posts")
     featured = models.BooleanField(default=False)
     popular = models.BooleanField(default=False)

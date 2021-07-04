@@ -18,7 +18,7 @@
             {% for post in popular_posts %}
             <div class="post featured-post-md">
                 <div class="details clearfix">
-                    <a href="{% url 'blog:category' post.categories.first.slug %}" class="category-badge">{{ post.categories.all.first }}</a>
+                    <a href="{% url 'blog:category' post.category.slug %}" class="category-badge">{{ post.category }}</a>
                     <h4 class="post-title"><a href="{% url 'blog:detail' post.slug %}">{{ post.title }}</a></h4>
                     <ul class="meta list-inline mb-0">
                         <li class="list-inline-item"><a href="{% url 'blog:about' %}">{{ post.author }}</a></li>
@@ -50,7 +50,7 @@
                                 <!-- post -->
                                 <div class="post post-grid rounded bordered">
                                     <div class="thumb top-rounded">
-                                        <a href="{% url 'blog:category' post.categories.first.slug %}" class="category-badge position-absolute">{{ post.categories.all.first }}</a>
+                                        <a href="{% url 'blog:category' post.category %}" class="category-badge position-absolute">{{ post.category }}</a>
                                         <span class="post-format">
                                             <i class="icon-picture"></i>
                                         </span>
