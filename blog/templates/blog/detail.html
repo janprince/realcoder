@@ -49,9 +49,9 @@
 							<div class="row d-flex align-items-center">
 								<div class="col-md-6 col-12 text-center text-md-start">
 									<!-- tags -->
-									<a href="#" class="tag">#Trending</a>
-									<a href="#" class="tag">#Video</a>
-									<a href="#" class="tag">#Featured</a>
+									{% for tag in post_tags %}
+									<a href="#" class="tag">#{{tag.tag|lower}}</a>
+									{% endfor %}
 								</div>
 								<div class="col-md-6 col-12">
 									<!-- social icons -->

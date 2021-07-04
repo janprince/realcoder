@@ -26,6 +26,19 @@ class Category(models.Model):
         return reverse('blog:category', args=[str(self.slug)])
 
 
+class Tag(models.Model):
+    tag = models.CharField(max_length=50, unique=True)
+    slug = models.SlugField()
+    popular = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f'{self.tag}'
+
+    def get_absolute_url(self):
+        from django.urls import reverse
+        return reverse('blog:tag', args=[str(self.slug)])
+
+
 # Post model
 class Post(models.Model):
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
@@ -35,7 +48,8 @@ class Post(models.Model):
     meta_description = models.TextField(max_length=170, blank=True)
     content = RichTextUploadingField()
     pub_date = models.DateTimeField(default=timezone.now)      # default=timezone.now - from django.utils import tim...
-    categories = models.ManyToManyField(Category, blank=False, related_name='posts')
+    categories = models.ForeignKey(Category, related_name='posts', on_delete=models.CASCADE, blank=True, null=True)
+    tags = models.ManyToManyField(Tag, blank=True, related_name="posts")
     featured = models.BooleanField(default=False)
     popular = models.BooleanField(default=False)
 

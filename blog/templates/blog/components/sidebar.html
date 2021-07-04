@@ -134,11 +134,9 @@
                 <img src="{% static 'blog/images/wave.svg' %}" class="wave" alt="wave" />
             </div>
             <div class="widget-content">
-                <a href="#" class="tag">#Trending</a>
-                <a href="#" class="tag">#Video</a>
-                <a href="#" class="tag">#Featured</a>
-                <a href="#" class="tag">#Gallery</a>
-                <a href="#" class="tag">#Celebrities</a>
+                {% for tag in popular_tags %}
+                <a href="#" class="tag">#{{ tag.tag }}</a>
+                {% endfor %}
             </div>
         </div>
 

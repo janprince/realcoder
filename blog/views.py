@@ -10,6 +10,7 @@ from django.core.paginator import PageNotAnInteger, Paginator, EmptyPage
 # global stuff
 popular_posts = Post.objects.filter(popular=True)
 categories = Category.objects.all()
+tags = Tag.objects.filter(popular=True)
 
 
 def index(request):
@@ -31,6 +32,8 @@ def index(request):
     context = {
         "posts": post_list,
         "num_pages": num_pages,
+
+        "popular_tags": tags,
         "popular_posts": popular_posts,
         "categories": categories,
     }
@@ -40,6 +43,7 @@ def index(request):
 def detail(request, post_slug):
     post = Post.objects.get(slug=post_slug)
     comments = post.comments.filter(active=True)
+    post_tags = post.tags.all()
 
     new_comment = None
     # comment posted
@@ -60,10 +64,12 @@ def detail(request, post_slug):
     context = {
         "post": post,
         "comments": comments,
+        "post_tags": post_tags,
         "new_comment": new_comment,
         # sidebars
         "categories": categories,
         "popular_posts": popular_posts,
+        "popular_tags": tags,
     }
     return render(request, "blog/detail.html", context)
 
@@ -72,9 +78,6 @@ def category(request, cat_slug):
     cat = Category.objects.get(slug=cat_slug)
     posts = cat.posts.all()
 
-    # popular posts
-    sidebar_posts = Post.objects.filter(popular=True)
-
     context = {
         "posts": posts,
         "category": cat,
@@ -82,8 +85,25 @@ def category(request, cat_slug):
         # sidebar
         "popular_posts": popular_posts,
         "categories": categories,
+        "popular_tags": tags,
     }
     return render(request, "blog/category.html", context)
+
+
+def tag(request, tag_slug):
+    tag_ = Tag.objects.get(slug=tag_slug)
+    posts = tag.posts.all()
+
+    context = {
+        "posts": posts,
+        "tag": tag_,
+
+        # sidebar
+        "popular_posts": popular_posts,
+        "categories": categories,
+        "popular_tags": tags,
+    }
+    return render(request, "blog/tag.html", context)
 
 
 def contact(request):
@@ -103,6 +123,7 @@ def contact(request):
 def about(request):
     context = {
         "popular_posts": popular_posts,
+        "popular_tags": tags,
         "categories": categories,
     }
     return render(request, "blog/about.html", context)

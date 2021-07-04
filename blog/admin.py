@@ -9,7 +9,7 @@ class PostAdmin(admin.ModelAdmin):
     list_filter = ('featured', )
     search_fields = ['title']
     actions = ['feature_posts', 'make_popular', 'remove_popular']
-    filter_horizontal = ("categories",)
+    filter_horizontal = ("tags",)
 
     def feature_posts(self, request, queryset):
         queryset.update(featured=True)
@@ -25,6 +25,16 @@ class PostAdmin(admin.ModelAdmin):
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ['id', 'tag']
     prepopulated_fields = {'slug': ('tag',)}
+
+
+# Tag
+class TagAdmin(admin.ModelAdmin):
+    list_display = ['id', 'tag']
+    prepopulated_fields = {'slug': ('tag',)}
+    actions = ["make_popular"]
+
+    def make_popular(self, request, queryset):
+        queryset.update(popular=True)
 
 
 # Comment
@@ -49,6 +59,7 @@ class ContactAdmin(admin.ModelAdmin):
 # Registering models
 admin.site.register(Author)
 admin.site.register(Category, CategoryAdmin)
+admin.site.register(Tag, TagAdmin)
 admin.site.register(Post, PostAdmin)
 admin.site.register(Comment, CommentAdmin)
 admin.site.register(Contact, ContactAdmin)

@@ -1,0 +1,100 @@
+{% extends "blog/base.html" %}
+{% load static %}
+
+{% block metas %}
+	<title>{{ tag.tag }} | RealCoder</title>
+{% endblock metas %}
+
+{% block main %}
+
+	<!-- header -->
+	{% include "blog/components/header.html" %}
+
+    <section class="page-header">
+        <div class="container-xl">
+            <div class="text-center">
+                <h1 class="mt-0 mb-2">#{{ tag.tag }}</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center mb-0">
+                        <li class="breadcrumb-item"><a href="{% url 'blog:index' %}">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{{ tag.tag }}</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </section>
+
+	<!-- section main content -->
+	<section class="main-content">
+		<div class="container-xl">
+
+			<div class="row gy-4">
+
+				<div class="col-lg-8">
+
+                    <div class="row gy-4">
+                        {% for post in posts%}
+                        <div class="col-sm-6">
+                            <!-- post -->
+                            <div class="post post-grid rounded bordered">
+                                <div class="thumb top-rounded">
+                                    <a href="{% url 'blog:tag' tag.slug %}" class="category-badge position-absolute">{{ tag.tag }}</a>
+                                    <span class="post-format">
+                                        <i class="icon-picture"></i>
+                                    </span>
+                                    <a href="{% url 'blog:detail' post.slug %}">
+                                        <div class="inner">
+                                            <img src="{{ post.image.url }}" alt="post-title" />
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="details">
+                                    <ul class="meta list-inline mb-0">
+                                        <li class="list-inline-item"><a href="{% url 'blog:about' %}"><img src="{% static 'blog/images/rc_logo.png' %}" width="40" class="author" alt="author"/>{{ post.author }}</a></li>
+                                        <li class="list-inline-item">{{ post.pub_date|date:"d M Y" }}</li>
+                                    </ul>
+                                    <h5 class="post-title mb-3 mt-3"><a href="{% url 'blog:detail' post.slug %}">{{ post.title }}</a></h5>
+                                    <p class="excerpt mb-0">{{ post.content|truncatechars_html:90|safe }}</p>
+                                </div>
+                                <div class="post-bottom clearfix d-flex align-items-center">
+                                    <div class="social-share me-auto">
+                                        <button class="toggle-button icon-share"></button>
+                                        <ul class="icons list-unstyled list-inline mb-0">
+                                            <li class="list-inline-item"><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                            <li class="list-inline-item"><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                            <li class="list-inline-item"><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                                            <li class="list-inline-item"><a href="#"><i class="fab fa-pinterest"></i></a></li>
+                                            <li class="list-inline-item"><a href="#"><i class="fab fa-telegram-plane"></i></a></li>
+                                            <li class="list-inline-item"><a href="#"><i class="far fa-envelope"></i></a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="more-button float-end">
+                                        <a href="blog-single.html"><span class="icon-options"></span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+
+					<nav>
+						<ul class="pagination justify-content-center">
+							<li class="page-item active" aria-current="page">
+								<span class="page-link">1</span>
+							</li>
+							<li class="page-item"><a class="page-link" href="#">2</a></li>
+							<li class="page-item"><a class="page-link" href="#">3</a></li>
+						</ul>
+					</nav>
+
+				</div>
+
+                <!-- sidebar -->
+				{% include "blog/components/sidebar.html" %}
+
+			</div>
+
+		</div>
+	</section>
+
+{% endblock main %}
