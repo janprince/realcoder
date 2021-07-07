@@ -13,11 +13,15 @@
     <section class="page-header">
         <div class="container-xl">
             <div class="text-center">
-                <h1 class="mt-0 mb-2">#{{ tag.tag }}</h1>
+                {% if q %}
+                <h1 class="mt-0 mb-2">Search Results for "{{ q }}"</h1>
+                {% else %}
+                <h1 class="mt-0 mb-2">Search Page"</h1>
+                {% endif %}
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb justify-content-center mb-0">
                         <li class="breadcrumb-item"><a href="{% url 'blog:index' %}">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">{{ tag.tag }}</li>
+                        <li class="breadcrumb-item active" aria-current="page">Search Results</li>
                     </ol>
                 </nav>
             </div>

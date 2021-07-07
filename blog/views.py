@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .models import *
+from django.db.models import Q
 from .forms import *
 from django.contrib import messages
 from django.core.paginator import PageNotAnInteger, Paginator, EmptyPage
@@ -56,7 +57,7 @@ def detail(request, post_slug):
             new_comment.post = post
             # Save the comment to the database
             new_comment.save()
-            messages.success("Your comment is awaiting moderation.")
+            messages.success(request, "Your comment is awaiting moderation.")
     else:
         comment_form = CommentForm()
 
@@ -135,3 +136,26 @@ def robots(request):
 
 def ads(request):
     return render(request, "blog/ads.txt", content_type="text/plain")
+
+
+# View to handle Search
+def search(request):
+    if request.GET.get('q'):
+        query = request.GET.get('q')
+        # query.split() # Todo
+        query_list = Post.objects.filter(Q(title__icontains=query), )   # Note: two underscores
+        context = {
+            'posts': query_list,
+            'query_count': len(query_list),
+            'q': query,
+
+            # sidebar
+            "popular_posts": popular_posts,
+            "categories": categories,
+            "popular_tags": tags,
+        }
+        return render(request, 'blog/search.html', context)
+    else:
+        return render(request, "blog/search.html", {
+            'categories': categories,
+        })

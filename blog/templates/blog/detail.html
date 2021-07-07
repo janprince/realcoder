@@ -31,8 +31,8 @@
 						<div class="post-header">
 							<h1 class="title mt-0 mb-3">{{ post.title }}</h1>
 							<ul class="meta list-inline mb-0">
-								<li class="list-inline-item"><a href="#"><img src="images/other/author-sm.png" class="author" alt="author"/>{{ post.author }}</a></li>
-								<li class="list-inline-item"><a href="#">{{ post.categories.all.first }}</a></li>
+								<li class="list-inline-item"><a href="#"><img src="{% static 'blog/images/rc_logo.png' %}" width="48" class="author" alt="author"/>{{ post.author }}</a></li>
+								<li class="list-inline-item"><a href="#">{{ post.category }}</a></li>
 								<li class="list-inline-item">{{ post.pub_date|date:"d M Y"}}</li>
 							</ul>
 						</div>
@@ -73,10 +73,10 @@
 
 					<div class="about-author padding-30 rounded">
 						<div class="thumb">
-							<img src="images/other/avatar-about.png" alt="Katen Doe" />
+							<img src="{% static 'blog/images/rc_logo.png' %}" alt="RealCoder logo" />
 						</div>
 						<div class="details">
-							<h4 class="name"><a href="#">Katen Doe</a></h4>
+							<h4 class="name"><a href="#">RealCoder</a></h4>
 							<p>Hello, I’m a content writer who is fascinated by content fashion, celebrity and lifestyle. She helps clients bring the right content to the right people.</p>
 							<!-- social icons -->
 							<ul class="social-icons list-unstyled list-inline mb-0">
@@ -92,53 +92,47 @@
 
 					<div class="spacer" data-height="50"></div>
 
-					<!-- section header -->
-					<div class="section-header">
-						<h3 class="section-title">Comments (3)</h3>
-						<img src="{% static 'blog/images/wave.svg' %}" class="wave" alt="wave" />
-					</div>
-					<!-- post comments -->
-					<div class="comments bordered padding-30 rounded">
+					{% if comments %}
+						<!-- section header -->
+						<div class="section-header">
+							<h3 class="section-title">Comments (3)</h3>
+							<img src="{% static 'blog/images/wave.svg' %}" class="wave" alt="wave" />
+						</div>
+						<!-- post comments -->
+						<div class="comments bordered padding-30 rounded">
 
-						<ul class="comments">
-							<!-- comment item -->
-							<li class="comment rounded">
-								<div class="thumb">
-									<img src="{% static 'blog/images/other/comment-1.png' %}" alt="John Doe" />
-								</div>
-								<div class="details">
-									<h4 class="name"><a href="#">John Doe</a></h4>
-									<span class="date">Jan 08, 2021 14:41 pm</span>
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam vitae odio ut tortor fringilla cursus sed quis odio.</p>
-									<a href="#" class="btn btn-default btn-sm">Reply</a>
-								</div>
-							</li>
-							<!-- comment item -->
-							<li class="comment child rounded">
-								<div class="thumb">
-									<img src="{% static 'blog/images/other/comment-1.png' %}" alt="John Doe" />
-								</div>
-								<div class="details">
-									<h4 class="name"><a href="#">Helen Doe</a></h4>
-									<span class="date">Jan 08, 2021 14:41 pm</span>
-									<p>Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum.</p>
-									<a href="#" class="btn btn-default btn-sm">Reply</a>
-								</div>
-							</li>
-							<!-- comment item -->
-							<li class="comment rounded">
-								<div class="thumb">
-									<img src="{% static 'blog/images/other/comment-1.png' %}" alt="John Doe" />
-								</div>
-								<div class="details">
-									<h4 class="name"><a href="#">Anna Doe</a></h4>
-									<span class="date">Jan 08, 2021 14:41 pm</span>
-									<p>Cras ultricies mi eu turpis hendrerit fringilla. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia.</p>
-									<a href="#" class="btn btn-default btn-sm">Reply</a>
-								</div>
-							</li>
-						</ul>
-					</div>
+							<ul class="comments">
+								{% for comment in comments %}
+									<!-- comment item -->
+									<li class="comment rounded">
+										<div class="thumb">
+											<img src="{% static 'blog/images/person.png' %}" alt="{{ comment.name }}" />
+										</div>
+										<div class="details">
+											<h4 class="name"><a href="#">{{ comment.name }}</a></h4>
+											<span class="date">{{ comment.created_on|date:"d M Y" }}</span>
+											<p>{{ comment.comment }}</p>
+										</div>
+									</li>
+								{% if comment.replies %}
+									{% for reply in comment.replies.all %}
+										<!-- comment item -->
+										<li class="comment child rounded">
+											<div class="thumb">
+												<img src="{% static 'blog/images/person.png' %}" alt="John Doe" />
+											</div>
+											<div class="details">
+												<h4 class="name"><a href="#">{{ reply.name }}</a></h4>
+												<span class="date">{{ reply.created_on|date:"d M Y" }}</span>
+												<p>{{ reply.reply_message }}</p>
+											</div>
+										</li>
+									{% endfor %}
+								{% endif %}
+								{% endfor %}
+							</ul>
+						</div>
+					{% endif %}
 
 					<div class="spacer" data-height="50"></div>
 
