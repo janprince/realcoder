@@ -14,13 +14,13 @@
 	<section class="main-content mt-3">
 		<div class="container-xl">
 
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item"><a href="#">Inspiration</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">3 Easy Ways To Make Your iPhone Faster</li>
-                </ol>
-            </nav>
+<!--            <nav aria-label="breadcrumb">-->
+<!--                <ol class="breadcrumb">-->
+<!--                    <li class="breadcrumb-item"><a href="#">Home</a></li>-->
+<!--                    <li class="breadcrumb-item"><a href="#">Inspiration</a></li>-->
+<!--                    <li class="breadcrumb-item active" aria-current="page">3 Easy Ways To Make Your iPhone Faster</li>-->
+<!--                </ol>-->
+<!--            </nav>-->
 
 			<div class="row gy-4">
 
@@ -50,7 +50,7 @@
 								<div class="col-md-6 col-12 text-center text-md-start">
 									<!-- tags -->
 									{% for tag in post_tags %}
-									<a href="#" class="tag">#{{tag.tag|lower}}</a>
+									<a href="{% url 'blog:tag' tag.slug %}" class="tag">#{{tag.tag|lower}}</a>
 									{% endfor %}
 								</div>
 								<div class="col-md-6 col-12">
@@ -106,7 +106,7 @@
 									<!-- comment item -->
 									<li class="comment rounded">
 										<div class="thumb">
-											<img src="{% static 'blog/images/person.png' %}" alt="{{ comment.name }}" />
+											<img src="{% static 'blog/images/person.png' %}" width="39" alt="{{ comment.name }}" />
 										</div>
 										<div class="details">
 											<h4 class="name"><a href="#">{{ comment.name }}</a></h4>
@@ -119,7 +119,7 @@
 										<!-- comment item -->
 										<li class="comment child rounded">
 											<div class="thumb">
-												<img src="{% static 'blog/images/person.png' %}" alt="John Doe" />
+												<img src="{% static 'blog/images/person.png' %}" width="39" alt="{{ reply.name }}" />
 											</div>
 											<div class="details">
 												<h4 class="name"><a href="#">{{ reply.name }}</a></h4>
@@ -139,7 +139,7 @@
 					<!-- section header -->
 					<div class="section-header">
 						<h3 class="section-title">Leave Comment</h3>
-						<img src="images/wave.svg" class="wave" alt="wave" />
+						<img src="{% static 'blog/images/wave.svg' %}" class="wave" alt="wave" />
 					</div>
 					<!-- comment form -->
 					<div class="comment-form rounded bordered padding-30">

@@ -1,0 +1,20 @@
+<li class="nav-item">
+    <a class="nav-link" href="{% url 'blog:index' %}">Home</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="{% url 'blog:category' 'programming' %}">Programming</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="{% url 'blog:category' 'crypto' %}">Crypto</a>
+</li>
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#">Categories</a>
+    <ul class="dropdown-menu">
+        {% for cat in categories %}
+        <li><a class="dropdown-item" href="{% url 'blog:category' cat.slug %}">{{ cat.tag }}</a></li>
+        {% endfor %}
+    </ul>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="{% url 'blog:contact' %}">Contact</a>
+</li>
