@@ -9,13 +9,13 @@ from django.core.paginator import PageNotAnInteger, Paginator, EmptyPage
 # Create your views here.
 
 # global stuff
-popular_posts = Post.objects.filter(popular=True)
+popular_posts = Post.objects.filter(popular=True, featured=True)
 categories = Category.objects.all()
 tags = Tag.objects.filter(popular=True)
 
 
 def index(request):
-    posts = Post.objects.all()
+    posts = Post.objects.filter(featured=True)
 
     # Pagination - My most impressive implementation
     paginator = Paginator(posts, 3)
@@ -77,7 +77,7 @@ def detail(request, post_slug):
 
 def category(request, cat_slug):
     cat = Category.objects.get(slug=cat_slug)
-    posts = cat.posts.all()
+    posts = cat.posts.filter(featured=True)
 
     context = {
         "posts": posts,
@@ -93,7 +93,7 @@ def category(request, cat_slug):
 
 def tag(request, tag_slug):
     tag_ = Tag.objects.get(slug=tag_slug)
-    posts = tag_.posts.all()
+    posts = tag_.posts.filter(featured=True)
 
     context = {
         "posts": posts,
@@ -143,7 +143,7 @@ def search(request):
     if request.GET.get('q'):
         query = request.GET.get('q')
         # query.split() # Todo
-        query_list = Post.objects.filter(Q(title__icontains=query), )   # Note: two underscores
+        query_list = Post.objects.filter(Q(title__icontains=query), featured=True)   # Note: two underscores
         context = {
             'posts': query_list,
             'query_count': len(query_list),
